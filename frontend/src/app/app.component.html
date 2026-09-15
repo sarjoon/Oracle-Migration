@@ -1,0 +1,1402 @@
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand techm-brand">
+      <b aria-hidden="true"><i></i></b>
+      <div>
+        <strong><span>TECH</span> <em>mahindra</em></strong
+        ><small>Migration Studio</small>
+      </div>
+    </div>
+    <nav aria-label="Application navigation">
+      <div class="menu-group">
+        <span>Migration</span>
+        <button
+          [class.active]="activePage === 'source-scripts'"
+          (click)="navigate('source-scripts')"
+        >
+          Generate Source Scripts
+        </button>
+        <button
+          [class.active]="activePage === 'db-configurations'"
+          (click)="navigate('db-configurations')"
+        >
+          Database Configurations
+        </button>
+        <button
+          [class.active]="activePage === 'build-migrations'"
+          (click)="navigate('build-migrations')"
+        >
+          Build Migrations
+        </button>
+      </div>
+      <div class="menu-group">
+        <span>Reconciliation</span>
+        <button
+          [class.active]="activePage === 'reconciliation-home'"
+          (click)="navigate('reconciliation-home')"
+        >
+          Reports Home
+        </button>
+        <button
+          [class.active]="activePage === 'quantitative-reconciliation'"
+          (click)="navigate('quantitative-reconciliation')"
+        >
+          Quantitative Recon
+        </button>
+        <button
+          [class.active]="activePage === 'qualitative-reconciliation'"
+          (click)="navigate('qualitative-reconciliation')"
+        >
+          Qualitative Recon
+        </button>
+      </div>
+    </nav>
+    <div class="storage-state">● Configuration stored in H2</div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <div>
+        <div class="breadcrumbs">
+          <span>Home</span><b>›</b
+          ><span>{{ activePage.includes('reconciliation') ? 'Reconciliation' : 'Migration' }}</span
+          ><b>›</b><strong>{{ pageTitle() }}</strong>
+        </div>
+        <h1>{{ pageTitle() }}</h1>
+      </div>
+      <span class="memory-note">Secrets: memory only</span>
+    </header>
+    <main>
+      <p class="notice" *ngIf="message">{{ message }}</p>
+
+      <section *ngIf="activePage === 'db-configurations'">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">CONNECTION MANAGEMENT</p>
+            <h2>Manage reusable connections</h2>
+            <p>
+              Create reusable Sybase and Oracle connection profiles. Credentials are never
+              persisted.
+            </p>
+          </div>
+          <button (click)="addProfile()">+ Add configuration</button>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Database type / version</th>
+                <th>Authentication</th>
+                <th>Endpoint</th>
+
+                <th>TLS</th>
+                <th class="right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of profiles">
+                <td>
+                  <strong>{{ p.name }}</strong
+                  ><small>{{ p.username || 'No username' }}</small>
+                </td>
+                <td>
+                  <span class="type-badge">{{ p.databaseType }}</span
+                  ><small>{{ p.databaseVersion || 'Version required — edit configuration' }}</small>
+                </td>
+                <td>{{ p.authType }}</td>
+                <td>{{ p.host }}:{{ p.port }}</td>
+
+                <td>
+                  <span [class.on]="p.tlsEnabled" class="tls">{{
+                    p.tlsEnabled ? 'Enabled' : 'Off'
+                  }}</span>
+                </td>
+                <td class="right actions-cell">
+                  <button class="icon-button" (click)="test(p)">Test</button
+                  ><button class="icon-button" (click)="editProfile(p)">Edit</button
+                  ><button class="icon-button danger" (click)="deleteProfile(p)">Delete</button>
+                </td>
+              </tr>
+              <tr *ngIf="!profiles.length">
+                <td colspan="6" class="empty">
+                  No configurations yet. Add your first database connection.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-backdrop" *ngIf="showProfileForm">
+          <form (ngSubmit)="saveProfile()" class="dialog">
+            <div class="dialog-head">
+              <div>
+                <p class="eyebrow">{{ profile.id ? 'EDIT' : 'NEW' }} CONNECTION</p>
+                <h2>{{ profile.id ? 'Edit' : 'Add' }} configuration</h2>
+              </div>
+              <button type="button" class="close" (click)="cancelProfile()">×</button>
+            </div>
+            <div class="form-grid">
+              <label>Name<input [(ngModel)]="profile.name" name="name" required /></label
+              ><label
+                >Database type<select
+                  [(ngModel)]="profile.databaseType"
+                  name="db"
+                  (ngModelChange)="profile.databaseVersion = ''"
+                >
+                  <option>SYBASE_ASE</option>
+                  <option>ORACLE</option>
+                </select></label
+              ><label
+                >Database version<input
+                  [(ngModel)]="profile.databaseVersion"
+                  name="databaseVersion"
+                  required
+                  maxlength="100"
+                  placeholder="e.g. 16.0 SP03 or 19c" /></label
+              ><label
+                >Authentication<select [(ngModel)]="profile.authType" name="auth">
+                  <option>DB_SECRET</option>
+                  <option>CERTIFICATE</option>
+                </select></label
+              ><label>Host<input [(ngModel)]="profile.host" name="host" required /></label
+              ><label>Port<input type="number" [(ngModel)]="profile.port" name="port" /></label
+              ><label *ngIf="profile.databaseType === 'SYBASE_ASE'"
+                >Database (Sybase)<input
+                  [(ngModel)]="profile.databaseName"
+                  name="database" /></label
+              ><label *ngIf="profile.databaseType === 'ORACLE'"
+                >Service (Oracle)<input [(ngModel)]="profile.serviceName" name="service" /></label
+              ><label>Username<input [(ngModel)]="profile.username" name="username" /></label
+              ><label class="check"
+                ><input type="checkbox" [(ngModel)]="profile.tlsEnabled" name="tls" /> Enable
+                TLS</label
+              ><label *ngIf="profile.authType === 'CERTIFICATE'"
+                >Truststore path<input [(ngModel)]="profile.trustStorePath" name="trust" /></label
+              ><label *ngIf="profile.authType === 'CERTIFICATE'"
+                >Keystore path<input [(ngModel)]="profile.keyStorePath" name="key"
+              /></label>
+            </div>
+            <div class="dialog-actions">
+              <button type="button" class="secondary" (click)="cancelProfile()">Cancel</button
+              ><button [disabled]="busy">Save configuration</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section *ngIf="activePage === 'source-scripts'">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">STEP 1 · NATIVE SOURCE DDL</p>
+            <h2>Generate Sybase schema scripts</h2>
+            <p>
+              Select a source connection and choose a schema/owner fetched from that database.
+              Scripts are grouped by object type. Table row data is not included.
+            </p>
+          </div>
+        </div>
+        <form class="card form-grid" (ngSubmit)="generateSourceScripts()">
+          <label
+            >Export name<input
+              [(ngModel)]="sourceExport.name"
+              name="exportName"
+              required
+              maxlength="120"
+          /></label>
+          <label
+            >Source database<select
+              [(ngModel)]="sourceExport.sourceProfileId"
+              (ngModelChange)="loadSchemas('export')"
+              name="sourceProfile"
+              required
+            >
+              <option [ngValue]="0">Select Sybase configuration</option>
+              <ng-container *ngFor="let p of profiles">
+                <option
+                  *ngIf="p.databaseType === 'SYBASE_ASE'"
+                  [ngValue]="p.id"
+                  [disabled]="!p.databaseVersion"
+                >
+                  {{ p.name }} · {{ p.databaseType }}
+                  {{ p.databaseVersion || 'Set version first' }}
+                </option>
+              </ng-container>
+            </select></label
+          >
+          <label
+            >Source schema<select
+              [(ngModel)]="sourceExport.sourceSchema"
+              name="sourceSchema"
+              required
+              [disabled]="schemaLists.export.loading || !schemaLists.export.names.length"
+            >
+              <option value="">
+                {{ schemaLists.export.loading ? 'Loading schemas…' : 'Select schema' }}
+              </option>
+              <option *ngFor="let schema of schemaLists.export.names" [value]="schema">
+                {{ schema }}
+              </option>
+            </select></label
+          >
+          <button
+            type="button"
+            class="secondary"
+            (click)="loadSchemas('export')"
+            [disabled]="!sourceExport.sourceProfileId || schemaLists.export.loading"
+          >
+            Reload schemas
+          </button>
+          <p *ngIf="schemaLists.export.error" class="notice" role="alert">
+            {{ schemaLists.export.error }}
+          </p>
+          <button
+            [disabled]="
+              exporting ||
+              schemaLists.export.loading ||
+              !sourceExport.sourceSchema ||
+              !sourceExport.name.trim()
+            "
+          >
+            Generate Sybase scripts
+          </button>
+        </form>
+        <p class="notice">
+          Set the source version and credentials in DB Configurations, then select a schema here.
+          Supported ASE version families: 15.7, 16.0 and 16.1. The backend requires SAP ddlgen
+          libraries. TLS and custom connection parameters are not yet supported for native export.
+        </p>
+        <div class="subheading">
+          <h2>Source exports</h2>
+          <button class="secondary" (click)="loadSourceExports()">Refresh</button>
+        </div>
+        <div class="card" *ngFor="let r of sourceExports">
+          <h3>
+            {{ r.name }} <span class="pill">{{ r.status }}</span>
+          </h3>
+          <p>
+            {{ r.databaseName }} / {{ r.schemaName || 'Legacy full-database export' }} ·
+            {{ r.databaseType }} {{ r.configuredVersion }} ·
+            {{ r.createdAt | date: 'medium' }}
+          </p>
+          <p *ngIf="r.detectedVersion">Detected: {{ r.detectedVersion }}</p>
+          <p>{{ r.message }}</p>
+          <p style="overflow-wrap: anywhere">{{ r.outputDirectory }}</p>
+          <div class="actions">
+            <button
+              class="secondary"
+              *ngIf="r.status === 'EXPORTED' || r.status === 'REVIEW_REQUIRED'"
+              (click)="downloadSourceScript(r.id, r.schemaName ? 'schema.zip' : 'database.sql')"
+            >
+              {{ r.schemaName ? 'Download schema ZIP' : 'Download legacy SQL' }}
+            </button>
+            <button class="secondary" (click)="downloadSourceScript(r.id, 'manifest.json')">
+              Download manifest
+            </button>
+          </div>
+        </div>
+        <div class="empty card" *ngIf="!sourceExports.length">No source exports yet.</div>
+      </section>
+      <section *ngIf="activePage === 'build-migrations'">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">SCRIPT GENERATION</p>
+            <h2>Prepare ordered migration scripts</h2>
+            <p>Select the source and target, discover objects, and generate ordered scripts.</p>
+          </div>
+        </div>
+        <div class="card form-grid migration-form">
+          <label>Migration name<input [(ngModel)]="job.name" /></label
+          ><label
+            >Sybase source<select
+              [(ngModel)]="job.sourceProfileId"
+              (ngModelChange)="loadSchemas('migration')"
+            >
+              <option [ngValue]="0">Select</option>
+              <option
+                *ngFor="let p of profiles"
+                [ngValue]="p.id"
+                [hidden]="p.databaseType !== 'SYBASE_ASE'"
+              >
+                {{ p.name }}
+              </option>
+            </select></label
+          ><label
+            >Oracle target<select
+              [(ngModel)]="job.targetProfileId"
+              (ngModelChange)="ensureCredentials([$event])"
+            >
+              <option [ngValue]="0">Select</option>
+              <option
+                *ngFor="let p of profiles"
+                [ngValue]="p.id"
+                [hidden]="p.databaseType !== 'ORACLE'"
+              >
+                {{ p.name }}
+              </option>
+            </select></label
+          ><label
+            >Source schema<select
+              [(ngModel)]="job.sourceSchema"
+              (ngModelChange)="clearMigrationObjects()"
+              [disabled]="schemaLists.migration.loading || !schemaLists.migration.names.length"
+            >
+              <option value="">
+                {{ schemaLists.migration.loading ? 'Loading schemas…' : 'Select schema' }}
+              </option>
+              <option *ngFor="let schema of schemaLists.migration.names" [value]="schema">
+                {{ schema }}
+              </option>
+            </select></label
+          ><button
+            class="secondary"
+            (click)="loadSchemas('migration')"
+            [disabled]="!job.sourceProfileId || schemaLists.migration.loading"
+          >
+            Reload schemas
+          </button>
+          <p *ngIf="schemaLists.migration.error" class="notice" role="alert">
+            {{ schemaLists.migration.error }}
+          </p>
+          <label class="check"
+            ><input type="checkbox" [(ngModel)]="job.entireSchema" /> Entire schema</label
+          ><label class="check"
+            ><input type="checkbox" [(ngModel)]="job.overwrite" /> Overwrite existing scripts</label
+          ><button
+            class="secondary"
+            (click)="discover()"
+            [disabled]="schemaLists.migration.loading || !job.sourceSchema"
+          >
+            Discover objects</button
+          ><button
+            (click)="createAndStart()"
+            [disabled]="schemaLists.migration.loading || !job.sourceSchema || !job.targetProfileId"
+          >
+            Generate scripts
+          </button>
+        </div>
+        <div class="objects" *ngIf="objects.length && !job.entireSchema">
+          <label *ngFor="let o of objects"
+            ><input type="checkbox" (change)="toggle(o, $event)" /><span>{{ o.type }}</span>
+            {{ o.name }}</label
+          >
+        </div>
+
+        <div class="subheading">
+          <div>
+            <p class="eyebrow">LIVE STATUS</p>
+            <h2>Migration progress</h2>
+          </div>
+          <p>Refreshes every five seconds</p>
+        </div>
+        <div class="charts" *ngIf="jobs.length">
+          <div class="card">
+            <h3>Generated units</h3>
+            <div class="stacked">
+              <i class="success" [style.width.%]="successWidth()"></i
+              ><i class="failure" [style.width.%]="failedWidth()"></i>
+            </div>
+            <div class="legend">
+              <span><b class="dot success"></b>{{ successWidth() }}% successful</span
+              ><span><b class="dot failure"></b>{{ failedWidth() }}% failed</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Job status distribution</h3>
+            <div class="status-bars">
+              <label
+                >Running
+                <i><b [style.width.%]="(statusCount('RUNNING') * 100) / jobs.length"></b></i
+                ><em>{{ statusCount('RUNNING') }}</em></label
+              ><label
+                >Completed
+                <i><b [style.width.%]="(statusCount('COMPLETED') * 100) / jobs.length"></b></i
+                ><em>{{ statusCount('COMPLETED') }}</em></label
+              ><label
+                >With errors
+                <i
+                  ><b
+                    class="warn"
+                    [style.width.%]="(statusCount('COMPLETED_WITH_ERRORS') * 100) / jobs.length"
+                  ></b></i
+                ><em>{{ statusCount('COMPLETED_WITH_ERRORS') }}</em></label
+              >
+            </div>
+          </div>
+        </div>
+        <div class="job card" *ngFor="let j of jobs">
+          <div>
+            <strong>{{ j.name }}</strong
+            ><small>{{ j.sourceProfile.name }} → {{ j.targetProfile.name }}</small>
+          </div>
+          <span class="pill">{{ j.status }}</span
+          ><span
+            >{{ j.currentPhase || '—' }} · {{ j.completedUnits }} complete ·
+            {{ j.failedUnits }} failed</span
+          >
+          <div class="job-progress"><i [style.width.%]="progress(j)"></i></div>
+          <strong class="percent">{{ progress(j) }}%</strong>
+          <div class="actions">
+            <button
+              class="secondary compact"
+              *ngIf="j.status === 'INTERRUPTED' || j.status === 'FAILED'"
+              (click)="action(j, 'resume')"
+            >
+              Resume</button
+            ><button class="secondary compact" *ngIf="j.failedUnits" (click)="action(j, 'retry')">
+              Retry failures</button
+            ><button class="secondary compact" *ngIf="j.failedUnits" (click)="manifest(j)">
+              Download log</button
+            ><label class="upload"
+              >Upload log<input type="file" accept="application/json" (change)="upload(j, $event)"
+            /></label>
+          </div>
+        </div>
+        <div class="empty card" *ngIf="!jobs.length">No migration jobs have been created.</div>
+      </section>
+
+      <section *ngIf="activePage === 'reconciliation-home'">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">REPORT LIBRARY</p>
+            <h2>Review generated results</h2>
+            <p>Reload completed reports or download their stored XLSX workbooks.</p>
+          </div>
+        </div>
+        <div class="subheading">
+          <div>
+            <p class="eyebrow">QUANTITATIVE</p>
+            <h2>Quantitative reports</h2>
+          </div>
+          <button (click)="navigate('quantitative-reconciliation')">New report</button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Report</th>
+                <th>Generated</th>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Matched</th>
+                <th>Mismatched</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let run of reconciliationRuns">
+                <td>
+                  <strong>{{ run.reportId }}</strong>
+                </td>
+                <td>{{ run.generatedAt | date: 'medium' }}</td>
+                <td>
+                  {{ run.source.configurationName
+                  }}<small>{{ run.source.databaseOrService }} / {{ run.source.schema }}</small>
+                </td>
+                <td>
+                  {{ run.target.configurationName
+                  }}<small>{{ run.target.databaseOrService }} / {{ run.target.schema }}</small>
+                </td>
+                <td>{{ run.matched }}</td>
+                <td>{{ run.mismatched }}</td>
+                <td class="actions-cell">
+                  <button
+                    class="icon-button"
+                    (click)="navigate('quantitative-reconciliation'); selectReconciliation(run)"
+                  >
+                    Reload</button
+                  ><button class="icon-button" (click)="downloadReport(run.reportId)">
+                    Download XLSX
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="!reconciliationRuns.length">
+                <td colspan="7" class="empty">No quantitative reports.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="subheading">
+          <div>
+            <p class="eyebrow">QUALITATIVE</p>
+            <h2>Qualitative reports</h2>
+          </div>
+          <button class="secondary" (click)="navigate('qualitative-reconciliation')">
+            Open qualitative recon
+          </button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Report</th>
+                <th>Generated</th>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let run of qualReports">
+                <td>
+                  <strong>{{ run.reportId }}</strong
+                  ><small>{{ run.batchName }}</small>
+                </td>
+                <td>{{ run.generatedAt | date: 'medium' }}</td>
+                <td>{{ run.source.name }}</td>
+                <td>{{ run.target.name }}</td>
+                <td>{{ run.status }}</td>
+                <td class="actions-cell">
+                  <button class="icon-button" (click)="reloadQualitative(run.reportId)">
+                    Reload</button
+                  ><button class="icon-button" (click)="downloadQualitative(run.reportId)">
+                    Download ZIP
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="!qualReports.length">
+                <td colspan="6" class="empty">No qualitative reports.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section *ngIf="activePage === 'quantitative-reconciliation'">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">SOURCE ↔ TARGET</p>
+            <h2>Compare structural totals</h2>
+            <p>Compare database object inventories and table record counts.</p>
+          </div>
+        </div>
+
+        <div class="card form-grid recon-form">
+          <label
+            >Sybase source<select
+              [(ngModel)]="recon.sourceProfileId"
+              (ngModelChange)="ensureCredentials([$event])"
+            >
+              <option [ngValue]="0">Select</option>
+              <option
+                *ngFor="let p of profiles"
+                [ngValue]="p.id"
+                [hidden]="p.databaseType !== 'SYBASE_ASE'"
+              >
+                {{ p.name }}
+              </option>
+            </select></label
+          >
+          <label
+            >Oracle target<select
+              [(ngModel)]="recon.targetProfileId"
+              (ngModelChange)="ensureCredentials([$event])"
+            >
+              <option [ngValue]="0">Select</option>
+              <option
+                *ngFor="let p of profiles"
+                [ngValue]="p.id"
+                [hidden]="p.databaseType !== 'ORACLE'"
+              >
+                {{ p.name }}
+              </option>
+            </select></label
+          >
+          <label>Source schema<input [(ngModel)]="recon.sourceSchema" /></label>
+          <label>Target schema<input [(ngModel)]="recon.targetSchema" /></label>
+          <div></div>
+          <button [disabled]="busy" (click)="startReconciliation()">Run reconciliation</button>
+        </div>
+
+        <div class="subheading">
+          <div>
+            <p class="eyebrow">SAVED FILES</p>
+            <h2>Quantitative reports</h2>
+          </div>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Report</th>
+                <th>Generated</th>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Matched</th>
+                <th>Mismatched</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let run of reconciliationRuns">
+                <td>
+                  <strong>{{ run.reportId }}</strong>
+                </td>
+                <td>{{ run.generatedAt | date: 'medium' }}</td>
+                <td>
+                  {{ run.source.configurationName
+                  }}<small>{{ run.source.databaseOrService }} / {{ run.source.schema }}</small>
+                </td>
+                <td>
+                  {{ run.target.configurationName
+                  }}<small>{{ run.target.databaseOrService }} / {{ run.target.schema }}</small>
+                </td>
+                <td>{{ run.matched }}</td>
+                <td>{{ run.mismatched }}</td>
+                <td>{{ run.status }}</td>
+                <td class="actions-cell">
+                  <button class="icon-button" (click)="selectReconciliation(run)">Reload</button
+                  ><button
+                    class="icon-button"
+                    [disabled]="!run.downloadable"
+                    (click)="downloadReport(run.reportId)"
+                  >
+                    Download XLSX
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="!reconciliationRuns.length">
+                <td colspan="8" class="empty">No saved quantitative reports.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="recon-status card" *ngIf="activeRun">
+          <div>
+            <strong>{{ activeRun.reportId }}</strong
+            ><small>The JSON and XLSX pair is created when processing completes.</small>
+          </div>
+          <span class="pill">{{ activeRun.status }}</span>
+        </div>
+        <div class="recon-status card" *ngIf="activeReconciliation">
+          <div>
+            <strong>{{ activeReconciliation.reportId }}</strong>
+            <small
+              >{{ activeReconciliation.source.configurationName }} /
+              {{ activeReconciliation.source.schema }} →
+              {{ activeReconciliation.target.configurationName }} /
+              {{ activeReconciliation.target.schema }}</small
+            >
+          </div>
+          <div class="actions-cell">
+            <span class="pill">{{ activeReconciliation.status }}</span
+            ><button class="icon-button" (click)="downloadReport(activeReconciliation.reportId)">
+              Download XLSX
+            </button>
+          </div>
+        </div>
+
+        <ng-container *ngIf="activeReconciliation?.status?.startsWith('COMPLETED')">
+          <div class="charts recon-charts">
+            <div class="card">
+              <h3>Object matching</h3>
+              <div class="donut-row">
+                <div class="donut" [style.--matched]="objectChartWidth(true) + '%'">
+                  {{ objectChartWidth(true) }}%
+                </div>
+                <div class="legend vertical">
+                  <span><b class="dot success"></b>{{ objectMatchCount(true) }} matched</span
+                  ><span><b class="dot failure"></b>{{ objectMatchCount(false) }} mismatched</span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Record-count matching</h3>
+              <div class="donut-row">
+                <div
+                  class="donut"
+                  [style.--matched]="
+                    (allTableCounts.length
+                      ? (recordMatchCount(true) * 100) / allTableCounts.length
+                      : 0) + '%'
+                  "
+                >
+                  {{ recordMatchCount(true) }} / {{ allTableCounts.length }}
+                </div>
+                <div class="legend vertical">
+                  <span><b class="dot success"></b>{{ recordMatchCount(true) }} matched</span
+                  ><span
+                    ><b class="dot failure"></b
+                    >{{ recordMatchCount(false) }} mismatched/errors</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="subheading">
+            <div>
+              <p class="eyebrow">OBJECT INVENTORY</p>
+              <h2>Object counts</h2>
+            </div>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Object type</th>
+                  <th>Source count</th>
+                  <th>Target count</th>
+                  <th>Result</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let result of objectCounts">
+                  <td>
+                    <strong>{{ result.objectType }}</strong>
+                  </td>
+                  <td>{{ result.sourceCount }}</td>
+                  <td>{{ result.targetCount }}</td>
+                  <td>
+                    <span class="match-icon" [class.mismatch]="!result.matched">{{
+                      result.matched ? '✓' : '×'
+                    }}</span>
+                    {{ result.matched ? 'Matched' : 'Mismatch' }}
+                  </td>
+                  <td>
+                    <button
+                      class="link-button"
+                      *ngIf="!result.matched"
+                      (click)="openDetails(result)"
+                    >
+                      Details</button
+                    ><span *ngIf="result.matched">—</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="subheading">
+            <div>
+              <p class="eyebrow">TABLE DATA</p>
+              <h2>Record counts</h2>
+            </div>
+            <label class="page-size"
+              >Rows per page<select
+                [ngModel]="tableCounts.size"
+                (ngModelChange)="changeTableSize($event)"
+              >
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+              </select></label
+            >
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Table</th>
+                  <th>Source records</th>
+                  <th>Target records</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of tableCounts.content">
+                  <td>
+                    <strong>{{ row.tableName }}</strong>
+                  </td>
+                  <td>{{ row.sourceCount ?? 'Missing' }}</td>
+                  <td>{{ row.targetCount ?? 'Missing' }}</td>
+                  <td>
+                    <span class="match-icon" [class.mismatch]="row.status !== 'MATCHED'">{{
+                      row.status === 'MATCHED' ? '✓' : '×'
+                    }}</span>
+                    {{ row.status }}<small *ngIf="row.errorMessage">{{ row.errorMessage }}</small>
+                  </td>
+                </tr>
+                <tr *ngIf="!tableCounts.content.length">
+                  <td colspan="4" class="empty">No table results.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination" *ngIf="tableCounts.totalPages > 1">
+            <button
+              class="secondary"
+              [disabled]="tableCounts.number === 0"
+              (click)="loadTableCounts(tableCounts.number - 1)"
+            >
+              Previous</button
+            ><span
+              >Page {{ tableCounts.number + 1 }} of {{ tableCounts.totalPages }} ·
+              {{ tableCounts.totalElements }} tables</span
+            ><button
+              class="secondary"
+              [disabled]="tableCounts.number + 1 >= tableCounts.totalPages"
+              (click)="loadTableCounts(tableCounts.number + 1)"
+            >
+              Next
+            </button>
+          </div>
+        </ng-container>
+
+        <div class="modal-backdrop" *ngIf="details">
+          <div class="dialog detail-dialog">
+            <div class="dialog-head">
+              <div>
+                <p class="eyebrow">OBJECT DETAILS</p>
+                <h2>{{ details.objectType }} differences</h2>
+              </div>
+              <button class="close" (click)="details = undefined">×</button>
+            </div>
+            <label class="page-size"
+              >Rows per grid<select
+                [ngModel]="detailSize"
+                (ngModelChange)="changeDetailSize($event)"
+              >
+                <option [ngValue]="10">10</option>
+                <option [ngValue]="25">25</option>
+                <option [ngValue]="50">50</option>
+              </select></label
+            >
+            <div class="detail-grids">
+              <div>
+                <h3>Missing in source</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Target-only object</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let name of missingSource.content">
+                      <td>{{ name }}</td>
+                    </tr>
+                    <tr *ngIf="!missingSource.content.length">
+                      <td class="empty">None</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mini-pagination">
+                  <button
+                    [disabled]="missingSource.page === 0"
+                    (click)="loadDetail('source', missingSource.page - 1)"
+                  >
+                    ‹</button
+                  ><span>{{ missingSource.page + 1 }} / {{ missingSource.totalPages || 1 }}</span
+                  ><button
+                    [disabled]="missingSource.page + 1 >= missingSource.totalPages"
+                    (click)="loadDetail('source', missingSource.page + 1)"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+              <div>
+                <h3>Missing in target</h3>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Source-only object</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let name of missingTarget.content">
+                      <td>{{ name }}</td>
+                    </tr>
+                    <tr *ngIf="!missingTarget.content.length">
+                      <td class="empty">None</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mini-pagination">
+                  <button
+                    [disabled]="missingTarget.page === 0"
+                    (click)="loadDetail('target', missingTarget.page - 1)"
+                  >
+                    ‹</button
+                  ><span>{{ missingTarget.page + 1 }} / {{ missingTarget.totalPages || 1 }}</span
+                  ><button
+                    [disabled]="missingTarget.page + 1 >= missingTarget.totalPages"
+                    (click)="loadDetail('target', missingTarget.page + 1)"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="activePage === 'qualitative-reconciliation'">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow">SOURCE TO TARGET</p>
+            <h2>Compare business data</h2>
+            <p>Configure logical mappings, batches, and record-level comparison.</p>
+          </div>
+        </div>
+        <div class="qual-tabs">
+          <button [class.active]="qualSection === 'tables'" (click)="qualSection = 'tables'">
+            Logical tables</button
+          ><button [class.active]="qualSection === 'physical'" (click)="qualSection = 'physical'">
+            Physical tables</button
+          ><button [class.active]="qualSection === 'pairs'" (click)="qualSection = 'pairs'">
+            Mappings</button
+          ><button [class.active]="qualSection === 'batches'" (click)="qualSection = 'batches'">
+            Batches</button
+          ><button [class.active]="qualSection === 'execute'" (click)="qualSection = 'execute'">
+            Execute & reports
+          </button>
+        </div>
+
+        <ng-container *ngIf="qualSection === 'tables'">
+          <div class="card form-grid recon-form">
+            <label>Logical table<input [(ngModel)]="logicalForm.name" /></label
+            ><label>Description<input [(ngModel)]="logicalForm.description" /></label
+            ><label class="check"
+              ><input type="checkbox" [(ngModel)]="logicalForm.autoCompare" /> Auto compare</label
+            ><label class="check"
+              ><input type="checkbox" [(ngModel)]="logicalForm.active" /> Active</label
+            ><button (click)="saveLogicalTable()">
+              {{ logicalForm.id ? 'Update' : 'Add' }} table
+            </button>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Mode</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of logicalTables">
+                  <td>
+                    <strong>{{ row.NAME }}</strong
+                    ><small>{{ row.DESCRIPTION }}</small>
+                  </td>
+                  <td>{{ row.AUTO_COMPARE ? 'Automatic' : 'Manual' }}</td>
+                  <td>{{ row.ACTIVE ? 'Active' : 'Inactive' }}</td>
+                  <td class="actions-cell">
+                    <button class="icon-button" (click)="editLogicalTable(row)">Edit</button
+                    ><button class="icon-button" (click)="selectLogicalTable(row.ID)">
+                      Columns
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" *ngIf="selectedLogicalTableId">
+            <h3>Logical columns</h3>
+            <div class="form-grid recon-form">
+              <label>Column<input [(ngModel)]="columnForm.name" /></label
+              ><label
+                >Primary-key position<input
+                  type="number"
+                  min="1"
+                  [(ngModel)]="columnForm.primaryKeyPosition"
+                  placeholder="Blank if not a key" /></label
+              ><label class="check"
+                ><input type="checkbox" [(ngModel)]="columnForm.excluded" /> Excluded</label
+              ><button (click)="saveLogicalColumn()">
+                {{ columnForm.id ? 'Update' : 'Add' }} column
+              </button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Column</th>
+                  <th>Key position</th>
+                  <th>Excluded</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of logicalColumns">
+                  <td>{{ row.NAME }}</td>
+                  <td>{{ row.PRIMARY_KEY_POSITION || '—' }}</td>
+                  <td>{{ row.EXCLUDED ? 'Yes' : 'No' }}</td>
+                  <td>
+                    <button class="icon-button" (click)="editLogicalColumn(row)">Edit</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="qualSection === 'physical'">
+          <div class="card form-grid recon-form">
+            <label
+              >Logical table<select [(ngModel)]="dbTableForm.logicalTableId">
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let row of logicalTables" [ngValue]="row.ID">{{ row.NAME }}</option>
+              </select></label
+            ><label
+              >Database<select [(ngModel)]="dbTableForm.connectionProfileId">
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let p of profiles" [ngValue]="p.id">
+                  {{ p.name }} ({{ p.databaseType }})
+                </option>
+              </select></label
+            ><label>Schema / owner<input [(ngModel)]="dbTableForm.schemaName" /></label
+            ><label>Physical table<input [(ngModel)]="dbTableForm.tableName" /></label
+            ><label class="check"
+              ><input type="checkbox" [(ngModel)]="dbTableForm.active" /> Active</label
+            ><button (click)="saveDbTable()">
+              {{ dbTableForm.id ? 'Update' : 'Add' }} mapping
+            </button>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Logical</th>
+                  <th>Database type / version</th>
+                  <th>Physical table</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of dbTableMappings">
+                  <td>{{ row.LOGICAL_TABLE_NAME }}</td>
+                  <td>
+                    {{ row.PROFILE_NAME }}<small>{{ row.DATABASE_TYPE }}</small>
+                  </td>
+                  <td>{{ row.SCHEMA_NAME }}.{{ row.TABLE_NAME }}</td>
+                  <td>{{ row.ACTIVE ? 'Active' : 'Inactive' }}</td>
+                  <td><button class="icon-button" (click)="editDbTable(row)">Edit</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="qualSection === 'pairs'">
+          <div class="card form-grid recon-form">
+            <label
+              >Logical table<select [(ngModel)]="pairForm.logicalTableId">
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let row of logicalTables" [ngValue]="row.ID">{{ row.NAME }}</option>
+              </select></label
+            ><label
+              >Source table<select [(ngModel)]="pairForm.sourceTableMappingId">
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let row of dbTableMappings" [ngValue]="row.ID">
+                  {{ row.PROFILE_NAME }} / {{ row.SCHEMA_NAME }}.{{ row.TABLE_NAME }}
+                </option>
+              </select></label
+            ><label
+              >Target table<select [(ngModel)]="pairForm.targetTableMappingId">
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let row of dbTableMappings" [ngValue]="row.ID">
+                  {{ row.PROFILE_NAME }} / {{ row.SCHEMA_NAME }}.{{ row.TABLE_NAME }}
+                </option>
+              </select></label
+            ><label class="check"
+              ><input type="checkbox" [(ngModel)]="pairForm.active" /> Active</label
+            ><button (click)="savePair()">{{ pairForm.id ? 'Update' : 'Add' }} pair</button>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Logical</th>
+                  <th>Source</th>
+                  <th>Target</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of reconPairs">
+                  <td>{{ row.LOGICAL_TABLE_NAME }}</td>
+                  <td>{{ row.SOURCE_PROFILE }} / {{ row.SOURCE_SCHEMA }}.{{ row.SOURCE_TABLE }}</td>
+                  <td>{{ row.TARGET_PROFILE }} / {{ row.TARGET_SCHEMA }}.{{ row.TARGET_TABLE }}</td>
+                  <td><button class="icon-button" (click)="editPair(row)">Edit / map</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" *ngIf="selectedPairId">
+            <div class="subheading">
+              <div>
+                <p class="eyebrow">COLUMN MAPPER</p>
+                <h2>Source-to-target mapping</h2>
+              </div>
+              <div class="actions-cell">
+                <button class="secondary" (click)="autoMapColumns()">Auto-map</button
+                ><button (click)="saveColumnMappings()">Save</button>
+              </div>
+            </div>
+            <p>
+              Drag a source column onto its target. Existing mappings are shown as connecting wires.
+            </p>
+            <div class="column-mapper">
+              <div>
+                <h3>Source</h3>
+                <div
+                  class="map-column"
+                  draggable="true"
+                  *ngFor="let name of sourceMapperColumns"
+                  (dragstart)="draggedSource = name"
+                >
+                  {{ name }}
+                </div>
+              </div>
+              <div class="mapping-wires">
+                <div *ngFor="let map of mappedColumns">
+                  <span>{{ map.SOURCE_COLUMN_NAME }}</span
+                  ><i></i><span>{{ map.TARGET_COLUMN_NAME }}</span>
+                </div>
+              </div>
+              <div>
+                <h3>Target</h3>
+                <div
+                  class="map-column target"
+                  *ngFor="let name of targetMapperColumns"
+                  (dragover)="$event.preventDefault()"
+                  (drop)="dropColumn(name)"
+                >
+                  <small>{{ mappingForTarget(name) || 'Drop source here' }}</small
+                  >{{ name }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="qualSection === 'batches'">
+          <div class="card form-grid recon-form">
+            <label
+              >Batch name<input [(ngModel)]="batchForm.name" placeholder="PRE-COB-NAU-001" /></label
+            ><label>Description<input [(ngModel)]="batchForm.description" /></label
+            ><label class="check"
+              ><input type="checkbox" [(ngModel)]="batchForm.active" /> Active</label
+            ><button (click)="saveBatch()">{{ batchForm.id ? 'Update' : 'Add' }} batch</button>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Batch</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of reconBatches">
+                  <td>{{ row.NAME }}</td>
+                  <td>{{ row.DESCRIPTION }}</td>
+                  <td>{{ row.ACTIVE ? 'Active' : 'Inactive' }}</td>
+                  <td>
+                    <button class="icon-button" (click)="editBatch(row)">Edit / assign</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card" *ngIf="selectedBatchId">
+            <h3>Assigned table pairs</h3>
+            <label class="batch-pair" *ngFor="let row of reconPairs"
+              ><input
+                type="checkbox"
+                [checked]="batchHasPair(row.ID)"
+                (change)="toggleBatchPair(row.ID, $any($event.target).checked)"
+              /><span>{{ row.LOGICAL_TABLE_NAME }}</span
+              ><small
+                >{{ row.SOURCE_SCHEMA }}.{{ row.SOURCE_TABLE }} → {{ row.TARGET_SCHEMA }}.{{
+                  row.TARGET_TABLE
+                }}</small
+              ></label
+            ><button (click)="saveBatchTables()">Save assignments</button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="qualSection === 'execute'">
+          <div class="card form-grid recon-form">
+            <label
+              >Source database<select
+                [(ngModel)]="qualExecution.sourceProfileId"
+                (ngModelChange)="ensureCredentials([$event]); loadEligibleBatches()"
+              >
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let p of profiles" [ngValue]="p.id">{{ p.name }}</option>
+              </select></label
+            ><label
+              >Target database<select
+                [(ngModel)]="qualExecution.targetProfileId"
+                (ngModelChange)="ensureCredentials([$event]); loadEligibleBatches()"
+              >
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let p of profiles" [ngValue]="p.id">{{ p.name }}</option>
+              </select></label
+            ><label
+              >Batch<select [(ngModel)]="qualExecution.batchId">
+                <option [ngValue]="0">Select</option>
+                <option *ngFor="let row of reconBatches" [ngValue]="row.ID">{{ row.NAME }}</option>
+              </select></label
+            ><button
+              class="secondary compact"
+              [disabled]="!qualExecution.batchId"
+              (click)="previewExecutionBatch()"
+            >
+              A · Tables</button
+            ><button [disabled]="!qualExecution.batchId" (click)="startQualitative()">
+              Execute
+            </button>
+          </div>
+          <div class="card recon-status" *ngIf="qualRun">
+            <div>
+              <strong>{{ qualRun.reportId }}</strong
+              ><small
+                >{{ qualRun.completedTables }} of {{ qualRun.totalTables }} tables ·
+                {{ qualRun.processedRecords }} records</small
+              >
+            </div>
+            <span class="pill">{{ qualRun.status }}</span>
+            <div class="job-progress"><i [style.width.%]="qualProgress()"></i></div>
+            <strong>{{ qualProgress() }}%</strong>
+          </div>
+          <div class="card" *ngIf="activeQualReport">
+            <div class="subheading">
+              <div>
+                <h2>{{ activeQualReport.batchName }}</h2>
+                <p>{{ activeQualReport.detailLabel }}</p>
+              </div>
+              <button (click)="downloadQualitative(activeQualReport.reportId)">
+                Download {{ activeQualReport.zipFile }}
+              </button>
+            </div>
+            <div class="qual-metrics">
+              <span
+                ><b>{{ activeQualReport.matched }}</b
+                >Matched</span
+              ><span
+                ><b>{{ activeQualReport.mismatched }}</b
+                >Mismatched</span
+              ><span
+                ><b>{{ activeQualReport.missingInSource }}</b
+                >Missing in source</span
+              ><span
+                ><b>{{ activeQualReport.missingInTarget }}</b
+                >Missing in target</span
+              >
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Logical table</th>
+                  <th>Source / target</th>
+                  <th>Counts</th>
+                  <th>Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of activeQualReport.tables">
+                  <td>{{ row.logicalTable }}</td>
+                  <td>
+                    {{ row.sourceTable }}<small>{{ row.targetTable }}</small>
+                  </td>
+                  <td>{{ row.sourceCount }} / {{ row.targetCount }}</td>
+                  <td>
+                    {{ row.status }}<small>{{ row.errorMessage || row.xlsxFile }}</small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Report</th>
+                  <th>Generated</th>
+                  <th>Batch</th>
+                  <th>Matched</th>
+                  <th>Issues</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let run of qualReports">
+                  <td>{{ run.reportId }}</td>
+                  <td>{{ run.generatedAt | date: 'medium' }}</td>
+                  <td>{{ run.batchName }}</td>
+                  <td>{{ run.matched }}</td>
+                  <td>{{ run.mismatched + run.missingInSource + run.missingInTarget }}</td>
+                  <td class="actions-cell">
+                    <button class="icon-button" (click)="reloadQualitative(run.reportId)">
+                      Reload</button
+                    ><button class="icon-button" (click)="downloadQualitative(run.reportId)">
+                      Download ZIP
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+
+        <div class="modal-backdrop" *ngIf="showBatchPreview">
+          <div class="dialog detail-dialog">
+            <div class="dialog-head">
+              <h2>Batch tables</h2>
+              <button class="close" (click)="showBatchPreview = false">×</button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>Target</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of batchTables">
+                  <td>{{ row.SOURCE_SCHEMA }}.{{ row.SOURCE_TABLE }}</td>
+                  <td>{{ row.TARGET_SCHEMA }}.{{ row.TARGET_TABLE }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="false" class="coming-soon">
+        <div class="coming-icon">↔</div>
+        <p class="eyebrow">QUALITATIVE RECONCILIATION</p>
+        <h2>Requirements pending</h2>
+        <p>
+          This section is ready for the qualitative reconciliation requirements when they are
+          defined.
+        </p>
+      </section>
+      <div class="modal-backdrop" *ngIf="credentialPrompt">
+        <div class="dialog">
+          <h2>Database credentials: {{ credentialProfileName() }}</h2>
+          <p>
+            Credentials are kept in server memory until the application JAR restarts. They are
+            reused across migration and reconciliation.
+          </p>
+          <label
+            >Database password<input type="password" [(ngModel)]="credentialPrompt.secret" /></label
+          ><label
+            >Key-store password (if required)<input
+              type="password"
+              [(ngModel)]="credentialPrompt.keyStoreSecret" /></label
+          ><button [disabled]="credentialSaving" (click)="submitQualCredential()">Continue</button
+          ><button
+            class="secondary"
+            [disabled]="credentialSaving"
+            (click)="cancelCredentialPrompt()"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

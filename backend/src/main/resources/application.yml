@@ -1,0 +1,32 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  datasource:
+    url: jdbc:h2:file:${APP_DATA_DIR:./data}/migration-config;AUTO_SERVER=TRUE
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+app:
+  source-script-directory: ${SOURCE_SCRIPT_DIR:}
+  sybase-ddlgen-classpath: ${SYBASE_DDLGEN_CLASSPATH:}
+  sybase-ddlgen-java: ${SYBASE_DDLGEN_JAVA:}
+  sybase-ddlgen-timeout-seconds: ${SYBASE_DDLGEN_TIMEOUT_SECONDS:1800}
+  output-directory: ${MIGRATION_OUTPUT_DIR:./generated}
+  reconciliation-directory: ${RECONCILIATION_OUTPUT_DIR:}
+  worker-threads: ${MIGRATION_WORKERS:4}
+  reconciliation-worker-threads: ${RECONCILIATION_WORKERS:2}
+  dml-chunk-size: ${DML_CHUNK_SIZE:10000}
+  bulk-threshold-rows: ${BULK_THRESHOLD_ROWS:100000}

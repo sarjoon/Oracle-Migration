@@ -1,0 +1,1 @@
+ALTER TABLE migration_job ADD COLUMN total_units INTEGER DEFAULT 0 NOT NULL;

@@ -1,0 +1,47 @@
+# Java / Maven build output
+target/
+*.class
+
+# Node / Angular dependencies, builds, and caches
+node_modules/
+dist/
+.angular/
+.npm/
+coverage/
+*.tsbuildinfo
+
+# Local database data and generated migration output
+backend/data/
+generated/
+dbscripts/
+backend/dbscripts/
+
+# Local environment files (keep example configuration in Git)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Logs
+*.log
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local IDE files
+.idea/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
