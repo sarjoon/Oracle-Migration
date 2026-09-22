@@ -7,8 +7,11 @@ import com.oraclemigration.service.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import java.nio.file.*;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api")
 public class MigrationController {
+  private static final Logger log = LoggerFactory.getLogger(MigrationController.class);
   private final ConnectionProfileRepository profiles;
   private final MigrationJobRepository jobs;
   private final JobCheckpointRepository checkpoints;
@@ -104,7 +108,34 @@ public class MigrationController {
     try (var c = db.open(profiles.findById(id).orElseThrow())) {
       return new TestResult(c.isValid(5), "Connection succeeded");
     } catch (Exception e) {
-      return new TestResult(false, e.getMessage());
+      log.error("Database connection test failed for profile {}", id, e);
+      var messages = new StringJoiner(" | ");
+      Set<Throwable> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+      var pending = new ArrayDeque<Throwable>();
+      pending.add(e);
+      while (!pending.isEmpty()) {
+        var failure = pending.removeFirst();
+        if (!visited.add(failure)) continue;
+        String message =
+            failure.getMessage() == null
+                ? failure.getClass().getSimpleName()
+                : failure.getMessage();
+        if (failure instanceof SQLException sql) {
+          // SQLWarnings are SQLExceptions and may be linked outside the cause chain.
+          message =
+              "SQLState="
+                  + sql.getSQLState()
+                  + ", vendorCode="
+                  + sql.getErrorCode()
+                  + ": "
+                  + message;
+          if (sql.getNextException() != null) pending.addLast(sql.getNextException());
+        }
+        log.error("Database connection diagnostic for profile {}: {}", id, message);
+        messages.add(message);
+        if (failure.getCause() != null) pending.addLast(failure.getCause());
+      }
+      return new TestResult(false, messages.toString());
     }
   }
 
