@@ -58,6 +58,11 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.sybase</groupId>
+      <artifactId>jconn4</artifactId>
+      <version>16.0</version>
+    </dependency>       
   </dependencies>
 
   <build>
