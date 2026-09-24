@@ -12113,7 +12113,7 @@ function fC(e, n) {
   if (e & 1) {
     let t = A();
     (l(0, 'section')(1, 'div', 17)(2, 'div')(3, 'p', 18),
-      u(4, 'STEP 1 \xB7 NATIVE SOURCE DDL'),
+      u(4, 'STEP 1 \xB7 SOURCE DDL AND DATA'),
       c(),
       l(5, 'h2'),
       u(6, 'Generate Sybase schema scripts'),
@@ -12121,7 +12121,7 @@ function fC(e, n) {
       l(7, 'p'),
       u(
         8,
-        ' Select a source connection and choose a schema/owner fetched from that database. Scripts are grouped by object type. Table row data is not included. ',
+        " Select a source connection and choose a schema/owner fetched from that database. DDL scripts are grouped by object type. Table rows are exported as batched Sybase INSERT scripts in the schema's data folder. ",
       ),
       c()()(),
       l(9, 'form', 49),

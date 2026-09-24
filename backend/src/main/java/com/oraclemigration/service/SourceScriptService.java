@@ -35,6 +35,7 @@ public class SourceScriptService {
   private final DatabaseAccess db;
   private final SecretVault vault;
   private final SybaseDdlExporter exporter;
+  private final SybaseDataExporter dataExporter;
   private final Path root;
 
   public SourceScriptService(
@@ -42,11 +43,13 @@ public class SourceScriptService {
       DatabaseAccess db,
       SecretVault vault,
       SybaseDdlExporter exporter,
+      SybaseDataExporter dataExporter,
       @Value("${app.source-script-directory:}") String configured) {
     this.json = json;
     this.db = db;
     this.vault = vault;
     this.exporter = exporter;
+    this.dataExporter = dataExporter;
     root =
         configured.isBlank()
             ? jarHome().resolve("dbscripts/source")
@@ -120,8 +123,7 @@ public class SourceScriptService {
             "QUEUED",
             Instant.now(),
             dir.toString(),
-            "Native DDL export for the selected schema only. Row data and other schemas are not"
-                + " exported.");
+            "DDL and table data export for the selected schema only.");
     write(report);
     return report;
   }
@@ -180,6 +182,17 @@ public class SourceScriptService {
               directory(id),
               objects);
       report =
+          update(
+              report,
+              "RUNNING",
+              report.detectedVersion(),
+              "Exporting table data as ASE INSERT scripts.");
+      write(report);
+      var combined = new ArrayList<>(result.objects());
+      combined.addAll(dataExporter.export(p, report.schemaName(), directory(id), objects));
+      result = new SybaseDdlExporter.ExportResult(List.copyOf(combined));
+      exporter.packageExport(directory(id), report.schemaName(), objects, result);
+      report =
           new ExportReport(
               report.id(),
               report.name(),
@@ -200,10 +213,10 @@ public class SourceScriptService {
               diagnostics ? "REVIEW_REQUIRED" : "EXPORTED",
               report.detectedVersion(),
               diagnostics
-                  ? "Some schema objects failed or require manual review. See the per-object"
-                        + " manifest."
-                  : "Native DDL exported. Validate completeness and replay with a DBA; hidden"
-                        + " definitions and utility limitations may require manual work."));
+                  ? "Some schema objects or data exports failed or require manual review. See the"
+                      + " per-object manifest."
+                  : "DDL and table data exported. Review constraints, triggers and replay order"
+                      + " with a DBA. Data is not a database-wide consistent snapshot."));
     } catch (Exception e) {
       if (report != null) {
         try {
@@ -211,7 +224,7 @@ public class SourceScriptService {
               e instanceof IllegalArgumentException
                   ? e.getMessage()
                   : "Export failed. Check credentials, connectivity, SAP libraries, permissions and"
-                        + " backend output-directory access.";
+                      + " backend output-directory access.";
           write(update(report, "FAILED", report.detectedVersion(), message));
         } catch (IOException ignored) {
         }

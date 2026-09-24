@@ -214,6 +214,13 @@ public class SybaseDdlExporter {
       }
     }
     var result = new ExportResult(List.copyOf(results));
+    packageExport(directory, schema, objects, result);
+    return result;
+  }
+
+  public void packageExport(
+      Path directory, String schema, List<SourceObject> objects, ExportResult result)
+      throws IOException {
     Path inventory = directory.resolve("objects.json");
     new ObjectMapper().writerWithDefaultPrettyPrinter().writeValue(inventory.toFile(), result);
     Path archive = directory.resolve("schema.zip.partial");
@@ -221,7 +228,7 @@ public class SybaseDdlExporter {
       zip.putNextEntry(new ZipEntry("objects.json"));
       Files.copy(inventory, zip);
       zip.closeEntry();
-      for (var script : results) {
+      for (var script : result.objects()) {
         if (script.file() == null) continue;
         zip.putNextEntry(new ZipEntry(script.file()));
         Files.copy(directory.resolve(script.file()), zip);
@@ -241,8 +248,11 @@ public class SybaseDdlExporter {
         zip.closeEntry();
       }
     }
-    Files.move(archive, directory.resolve("schema.zip"), StandardCopyOption.ATOMIC_MOVE);
-    return result;
+    Files.move(
+        archive,
+        directory.resolve("schema.zip"),
+        StandardCopyOption.ATOMIC_MOVE,
+        StandardCopyOption.REPLACE_EXISTING);
   }
 
   boolean exportObject(

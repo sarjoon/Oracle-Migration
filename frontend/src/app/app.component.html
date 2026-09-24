@@ -189,11 +189,12 @@
       <section *ngIf="activePage === 'source-scripts'">
         <div class="page-intro">
           <div>
-            <p class="eyebrow">STEP 1 · NATIVE SOURCE DDL</p>
+            <p class="eyebrow">STEP 1 · SOURCE DDL AND DATA</p>
             <h2>Generate Sybase schema scripts</h2>
             <p>
-              Select a source connection and choose a schema/owner fetched from that database.
-              Scripts are grouped by object type. Table row data is not included.
+              Select a source connection and choose a schema/owner fetched from that database. DDL
+              scripts are grouped by object type. Table rows are exported as batched Sybase INSERT
+              scripts in the schema's data folder.
             </p>
           </div>
         </div>

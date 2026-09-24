@@ -15,6 +15,7 @@ class SourceScriptServiceTests {
   @TempDir Path root;
   DatabaseAccess db = mock(DatabaseAccess.class);
   SybaseDdlExporter exporter = mock(SybaseDdlExporter.class);
+  SybaseDataExporter dataExporter = mock(SybaseDataExporter.class);
   SecretVault vault = new SecretVault();
   ConnectionProfile profile;
   SourceScriptService service;
@@ -34,7 +35,13 @@ class SourceScriptServiceTests {
     vault.put(1L, "test-password", null);
     service =
         new SourceScriptService(
-            new ObjectMapper().findAndRegisterModules(), db, vault, exporter, root.toString());
+            new ObjectMapper().findAndRegisterModules(),
+            db,
+            vault,
+            exporter,
+            dataExporter,
+            root.toString());
+    when(dataExporter.export(any(), anyString(), any(), anyList())).thenReturn(java.util.List.of());
     service.recover();
     Connection connection = mock(Connection.class);
     DatabaseMetaData metadata = mock(DatabaseMetaData.class);
@@ -81,6 +88,52 @@ class SourceScriptServiceTests {
     assertFalse(
         Files.readString(service.download(report.id(), "manifest.json")).contains("test-password"));
     assertEquals(1, service.list().size());
+  }
+
+  @Test
+  void packagesDataWithDdlAndPropagatesDataFailures() throws Exception {
+    when(exporter.export(any(), anyString(), anyString(), any(), anyList()))
+        .thenAnswer(
+            invocation -> {
+              Path dir = invocation.getArgument(3);
+              Files.createDirectories(dir.resolve("dbo/tables"));
+              Files.writeString(
+                  dir.resolve("dbo/tables/t.sql"), "create table dbo.t (id int)\ngo\n");
+              return new SybaseDdlExporter.ExportResult(
+                  java.util.List.of(
+                      new SybaseDdlExporter.ScriptResult(
+                          "U", "t", "dbo", "EXPORTED", "dbo/tables/t.sql", "DDL exported")));
+            });
+    when(dataExporter.export(any(), anyString(), any(), anyList()))
+        .thenAnswer(
+            invocation -> {
+              Path dir = invocation.getArgument(2);
+              Files.createDirectories(dir.resolve("dbo/data"));
+              Files.writeString(
+                  dir.resolve("dbo/data/t_data_001.sql"),
+                  "INSERT INTO dbo.t (id) VALUES (1);\ngo\n");
+              return java.util.List.of(
+                  new SybaseDdlExporter.ScriptResult(
+                      "DATA", "t", "dbo", "EXPORTED", "dbo/data/t_data_001.sql", "Exported 1 rows"),
+                  new SybaseDdlExporter.ScriptResult(
+                      "DATA", "unreadable", "dbo", "FAILED", null, "Permission denied"));
+            });
+    doCallRealMethod().when(exporter).packageExport(any(), anyString(), anyList(), any());
+    var report = service.create(profile, "DDL and data", "dbo");
+    service.generate(report.id(), profile);
+    assertEquals("REVIEW_REQUIRED", service.get(report.id()).status());
+    assertEquals(3, service.get(report.id()).objects().size());
+    try (var zip =
+        new java.util.zip.ZipFile(service.download(report.id(), "schema.zip").toFile())) {
+      assertNotNull(zip.getEntry("dbo/tables/t.sql"));
+      assertNotNull(zip.getEntry("dbo/data/t_data_001.sql"));
+      String inventory =
+          new String(
+              zip.getInputStream(zip.getEntry("objects.json")).readAllBytes(),
+              java.nio.charset.StandardCharsets.UTF_8);
+      assertTrue(inventory.contains("DATA"));
+      assertTrue(inventory.contains("Permission denied"));
+    }
   }
 
   @Test
