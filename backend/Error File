@@ -1,1 +1,2593 @@
-Adaptive Server Enterprise/15.7/EBF 28475 SMP SP141 /P/RS6000/AIX 6.1/ase157sp141x/4331/64-bit/FBO/Wed Aug 14 05:34:12 2019
+{
+  "objects" : [ {
+    "type" : "D",
+    "name" : "cdm_contac_seq_nu_738098639",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "D",
+    "name" : "cdm_partic_seq_nu_907147246",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "D",
+    "name" : "cdm_prefer_seq_nu_231668842",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "D",
+    "name" : "cdm_servic_seq_nu_1084527866",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "D",
+    "name" : "gcl_wui_pr_defaul_1502625365",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "GET_TABLE_COUNT",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "check_otf_audit_link",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_add_arc",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_add_link_both",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_add_link_end",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_add_link_start",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_add_mapping_entry",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_clear_all_triggers",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_clear_tables_matching",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_delete_arc",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_drop_link_both",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_drop_link_end",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_drop_link_start",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_get_mapping",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_rebuild_tc",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_rebuild_tc_matching",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_remove_mapping_entry",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_set_anymode",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_clear_trigger",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_clear_trigger_matching",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_gen_trg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_gen_trg_link",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_gen_trg_matching",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_gen_trg_nlink",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_sub_handle_link_both",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_sub_handle_link_simple",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_tc_sub_process_link",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_update_link_both",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_update_link_end",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_update_link_start",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "P",
+    "name" : "gcl_update_stats",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_attachments_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_clientrelationopening_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_clienttype_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_codeword_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_contactpointmapping_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_contactpointmapping_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_corporation_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_direct_relationship_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_direct_relationship_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_direct_relationship_fk_3",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_direct_relationship_fk_4",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_entitiesingroup_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_financialenvironment_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_firstfundstransfer_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_incomingtransfercountries_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_initialtransfer_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_instrumentsworked_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_marketingdata_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_otherbanks_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_outgoingtransfercountries_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_participantrolemapping_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_participation_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_participation_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_participation_fk_3",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_partyrolemapping_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_partyrolemapping_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_partyrolemapping_fk_3",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_person_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_person_nationalities_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_preferredcontacts_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_preferredcontacts_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_repe_clientrelation_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_repe_contact_point_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_repe_direct_relationship_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_repe_grouprelationship_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_repe_participation_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_repe_party_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_riskprofile_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_role_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_usageofassets_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cdm_wealthcomposition_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "cims_contacts_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_dataset_access_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_dataset_access_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_dataset_access_fk_3",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_dataset_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_dataset_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_dataset_role_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_datasetaccess_role_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_securityprofile_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_securityprofileitem_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_sharedprivileges_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_user_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_user_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_user_role_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_usercategory_access_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_usercategory_access_fk_2",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_usercategory_access_fk_3",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "gcl_wui_profiles_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "oetf_joblauncher_event_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "oetf_joblauncher_job_chunk_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "oetf_joblauncher_step_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "omgt_session_job_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "rep_contents_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "rep_data_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "rep_properties_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "tasc_prec_job_param_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "uifprefs_keyvalue_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "uifprefs_node_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "RI",
+    "name" : "uifprefs_root_fk_1",
+    "owner" : "dbo",
+    "status" : "MANUAL_REVIEW",
+    "file" : null,
+    "message" : "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."
+  }, {
+    "type" : "TR",
+    "name" : "cdm_clientrelation_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "cdm_direct_relationship_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "cdm_participation_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "cdm_party_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "gcl_dataset_access_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "gcl_dataset_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "gcl_user_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "gcl_usercategory_access_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "TR",
+    "name" : "gcl_usercategory_tctrg",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CDM_MESSAGES",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CR149",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_TMP_OUTDOC",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation1",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation2",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation3",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation4",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation5",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation6",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelation7",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_clientrelationo",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_contact_point",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_corporation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_p_financialenvi",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_p_riskprofile",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_participation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_person",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_preferredcontac",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_riskprofile",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_s_custodyacct",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "CUSTOM_cdm_services",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "MIG_cdm_clientrelation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "MIG_cdm_corporation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "MIG_cdm_p_financialenvi",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "MIG_cdm_participation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "audit_gcl_user",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "audit_gcl_user_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_compliance_checked",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_currency_filter",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_exchange_rate_sr",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_exchange_rate_sr_ccies",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_exchange_rate_sr_criteria",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_exchange_rate_sr_links",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_instrument_filter",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_portfolio_universes",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_portfolio_universes_refs",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_ptf_link_sr_group",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_ptf_tax_convention",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_quote_sr",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_quote_sr_criteria",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_quote_sr_instruments",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_quote_sr_links",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_service_message",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_service_message_param",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_sr_group",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_tax_convention",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_tax_convention_history",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_tax_convn_instr_filter",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cbi_tax_convn_instruments",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_attachments",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_attachments_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_clientrelation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_clientrelation_status",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_clientrelation_type",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_clientrelationopening",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_clienttype",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_codeword",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_commercial_roles",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_contact_point",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_contact_point_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_contactpointmapping",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_contactpointmapping_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_contactpointtype",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_contactpointusagetype",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_corporation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_direct_relationship",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_entitiesingroup",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_financialenvironment",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_firstfundstransfer",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_grouprelationship",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_grouprelationship_item",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_incomingtransfercountries",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_initialtransfer",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_instrumentsworked",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_lock",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_marketingdata",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_otherbanks",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_outgoingtransfercountries",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_clienttype",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_entitiesingroup",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_financialenvironment",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_firstfundstransfer",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_incomingtransfercountry",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_initialtransfer",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_instrumentsworked",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_marketingdata",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_opening",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_otherbanks",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_outgoingtransfercountry",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_riskprofile",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_usageofassets",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_p_wealthcomposition",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_participantrolemapping",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_participation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_party",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_party_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_partyrolemapping",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_partytype",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_person",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_person_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_person_nationalities",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_person_nationalities_archive",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_preferred",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_preferredcontacts",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_preferredtableclassmapping",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_repe_clientrelation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_repe_contact_point",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_repe_direct_relationship",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_repe_grouprelationship",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_repe_participation",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_repe_party",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_riskprofile",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_role",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_roletype",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_services",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_usageofassets",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cdm_wealthcomposition",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts_banks",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts_clients",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts_details",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts_details_ext",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts_extensions",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_contacts_tasks",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_task",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "cims_tasks_extensions",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_dataset",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_dataset_access",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_dataset_role",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_datasetaccess_role",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_passwordrules",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_securityprofile",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_securityprofileitem",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_sharedprivileges",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc_add_delta",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc_add_new",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc_base",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc_del_new",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc_mapping",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_tc_schema",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_user",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_user_role",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_usercategory",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_usercategory_access",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "gcl_wui_profiles",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_notif",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_notif_objects",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_notif_subjects",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_recip_notif",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_recip_notif_objects",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_recipients",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_spec",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_alert_spec_tasks",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_query_access_refs",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_query_output",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "hrt_query_spec",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "iea_compo_schema_hist",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "iea_ocs_version",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "iea_ocs_version_hist",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_localized_topics",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_notification_box",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_notifications",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_notifications_extensions",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_properties",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_related_entities",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "nbox_subscriptions",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "oetf_joblauncher_event",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "oetf_joblauncher_job_chunk",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "oetf_joblauncher_job_instance",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "oetf_joblauncher_step",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_message_link",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_order_session",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_order_session_ext",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_order_session_hist",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_communication",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_fees_and_taxes",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_order",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_order_account",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_order_ext",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_renewal",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_pms_validation_log",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "omgt_session_job",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_access_control_list",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_audit_event",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_audit_raw_event",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_audit_report",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_audit_report_event",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_audit_report_spec",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_basic_credential",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_control_attribute",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_credential",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_delegate_assoc_privilege",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_delegate_privilege",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_group",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_label_control_attribute",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_monitoring_batch",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_monitoring_event",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_monitoring_job",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_monitoring_sub_job",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_privilege",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_pwd_history",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_role",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_scheduler_alert",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_scheduler_alert_error",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_secured_resource",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_user",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "otf_user_privilege",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "rep_contents",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "rep_data",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "rep_properties",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "rpt_ocs_reports",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "tab_rec",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "tasc_prec_job",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "tasc_prec_job_param",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "tasc_prec_job_status",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "tasc_prec_job_tables",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "tasc_prec_portfolio_set",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "udp_test_sample_flat",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "uifprefs_keyvalue",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "uifprefs_node",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "uifprefs_root",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_act_assignee_link",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_act_in_props",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_act_model_assignee_link",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_act_out_props",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_activity",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_activity_hist",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_activity_model",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_bin_activity_hist",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_data",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_process",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_process_hist",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_process_hist_props",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "U",
+    "name" : "wfl_process_model",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "CUSTOM_clientrelation_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "CUSTOM_clientrelation_vw1",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_CUSTOM_cdm_clientrelationo_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_CUSTOM_cdm_p_financialenvi_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_CUSTOM_cdm_p_riskprofile_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_CUSTOM_cdm_riskprofile_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_CUSTOM_cdm_services_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBICLRL_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBICORP_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBIPDTL_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBIPID_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBIPRM_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBIPRTC_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_PBIPRTY_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_clientrelation_status_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_clientrelation_type_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_commercial_roles_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_preferredtableclassmapping_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "EDAG_cdm_roletype_vw",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  }, {
+    "type" : "V",
+    "name" : "sysquerymetrics",
+    "owner" : "dbo",
+    "status" : "FAILED",
+    "file" : null,
+    "message" : "Extraction failed. Check utility compatibility, visibility and permissions."
+  } ]
+}
