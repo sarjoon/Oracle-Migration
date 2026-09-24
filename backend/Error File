@@ -1,14 +1,1 @@
-{
-  "id" : "e906cc3a-0a05-4866-a4d8-3e2a682a39b5",
-  "name" : "Sybase native export",
-  "databaseType" : "SYBASE_ASE",
-  "configuredVersion" : "16.0 SPO3",
-  "detectedVersion" : null,
-  "databaseName" : "AAAMAINDB",
-  "schemaName" : "PBASAM",
-  "objects" : [ ],
-  "status" : "FAILED",
-  "createdAt" : "2026-09-24T07:18:10.544169600Z",
-  "outputDirectory" : "C:\\Oracle-Migration\\Oracle-Migration-main\\backend\\target\\dbscripts\\source\\e906cc3a-0a05-4866-a4d8-3e2a682a39b5",
-  "message" : "Configured ASE version family does not match the connected database. Update the DB configuration."
-}
+Adaptive Server Enterprise/15.7/EBF 28475 SMP SP141 /P/RS6000/AIX 6.1/ase157sp141x/4331/64-bit/FBO/Wed Aug 14 05:34:12 2019
