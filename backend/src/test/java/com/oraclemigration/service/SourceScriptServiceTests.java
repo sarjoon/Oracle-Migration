@@ -67,24 +67,37 @@ class SourceScriptServiceTests {
     when(exporter.export(eq(profile), eq("dbo"), anyString(), any(), anyList()))
         .thenAnswer(
             invocation -> {
+              Path dir = invocation.getArgument(3);
+              Files.createDirectories(dir.resolve("dbo/procedures"));
               Files.writeString(
-                  ((Path) invocation.getArgument(3)).resolve("schema.zip"),
+                  dir.resolve("dbo/procedures/1_p.sql"),
                   "create procedure dbo.p as select 1\ngo\n");
               return new SybaseDdlExporter.ExportResult(
                   java.util.List.of(
                       new SybaseDdlExporter.ScriptResult(
                           "P", "p", "dbo", "EXPORTED", "dbo/procedures/1_p.sql", "Exported")));
             });
+    doCallRealMethod().when(exporter).packageExport(any(), anyString(), anyList(), any());
     var report = service.create(profile, "Source export", "dbo");
     Path exportDirectory = Path.of(report.outputDirectory());
     assertEquals(root.resolve("example"), exportDirectory.getParent());
     assertTrue(exportDirectory.getFileName().toString().matches("[0-9]{14}"));
     service.generate(report.id(), profile);
     var completed = service.get(report.id());
-    assertEquals("EXPORTED", completed.status());
+    assertEquals("EXPORTED", completed.status(), completed::message);
     assertTrue(completed.detectedVersion().contains("16.0"));
-    assertTrue(
-        Files.readString(service.download(report.id(), "schema.zip")).contains("create procedure"));
+    try (var zip =
+        new java.util.zip.ZipFile(service.download(report.id(), "schema.zip").toFile())) {
+      var entry = zip.getEntry("dbo/procedures/1_p.sql");
+      assertNotNull(entry);
+      try (var input = zip.getInputStream(entry)) {
+        assertTrue(
+            new String(input.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8)
+                .contains("create procedure"));
+      }
+      assertNotNull(zip.getEntry("objects.json"));
+    }
+    verify(dataExporter).export(eq(profile), eq("dbo"), eq(exportDirectory), anyList());
     assertFalse(
         Files.readString(service.download(report.id(), "manifest.json")).contains("test-password"));
     assertEquals(1, service.list().size());
