@@ -66,14 +66,12 @@ class SourceScriptServiceTests {
               return new SybaseDdlExporter.ExportResult(
                   java.util.List.of(
                       new SybaseDdlExporter.ScriptResult(
-                          "P",
-                          "p",
-                          "dbo",
-                          "EXPORTED",
-                          "schemas/dbo/procedures/1_p.sql",
-                          "Exported")));
+                          "P", "p", "dbo", "EXPORTED", "dbo/procedures/1_p.sql", "Exported")));
             });
     var report = service.create(profile, "Source export", "dbo");
+    Path exportDirectory = Path.of(report.outputDirectory());
+    assertEquals(root.resolve("example"), exportDirectory.getParent());
+    assertTrue(exportDirectory.getFileName().toString().matches("[0-9]{14}"));
     service.generate(report.id(), profile);
     var completed = service.get(report.id());
     assertEquals("EXPORTED", completed.status());
@@ -213,9 +211,9 @@ class SourceScriptServiceTests {
     var result =
         nativeExporter.export(profile, "dbo", "test-password", root, java.util.List.of(owned));
     assertFalse(result.requiresReview());
-    assertTrue(Files.exists(root.resolve("schemas/dbo/procedures/1_p.sql")));
+    assertTrue(Files.exists(root.resolve("dbo/procedures/1_p.sql")));
     try (var zip = new java.util.zip.ZipFile(root.resolve("schema.zip").toFile())) {
-      assertNotNull(zip.getEntry("schemas/dbo/procedures/1_p.sql"));
+      assertNotNull(zip.getEntry("dbo/procedures/1_p.sql"));
       assertNotNull(zip.getEntry("objects.json"));
       assertEquals(2, zip.size());
     }
@@ -224,11 +222,75 @@ class SourceScriptServiceTests {
   @Test
   void selectedSchemaBelongsToExportAndDoesNotChangeConnection() throws Exception {
     var first = service.create(profile, "First", "dbo");
+    profile.setDatabaseName("another_database");
     var second = service.create(profile, "Second", "other");
     assertEquals("dbo", service.get(first.id()).schemaName());
     assertEquals("other", service.get(second.id()).schemaName());
     assertEquals("legacy_owner", profile.getSchemaName());
     assertThrows(
         IllegalArgumentException.class, () -> service.create(profile, "Absent", "missing"));
+  }
+
+  @Test
+  void legacyExportsRemainReadableAfterRestart() throws Exception {
+    var report = service.create(profile, "Legacy", "dbo");
+    Path legacy = root.resolve(report.id());
+    Files.move(Path.of(report.outputDirectory()), legacy);
+    var legacyReport =
+        new SourceScriptService.ExportReport(
+            report.id(),
+            report.name(),
+            report.databaseType(),
+            report.configuredVersion(),
+            report.detectedVersion(),
+            report.databaseName(),
+            report.schemaName(),
+            report.objects(),
+            report.status(),
+            report.createdAt(),
+            legacy.toString(),
+            report.message());
+    new ObjectMapper()
+        .findAndRegisterModules()
+        .writeValue(legacy.resolve("manifest.json").toFile(), legacyReport);
+    service.recover();
+    assertEquals("INTERRUPTED", service.get(report.id()).status());
+    assertEquals(legacy.resolve("manifest.json"), service.download(report.id(), "manifest.json"));
+    assertEquals(1, service.list().size());
+  }
+
+  @Test
+  void nativeFailurePreservesRedactedDiagnosticsAndExitCode() throws Exception {
+    var nativeExporter = spy(new SybaseDdlExporter("missing-library", "java", 30));
+    Process process = mock(Process.class);
+    when(process.getOutputStream()).thenReturn(new java.io.ByteArrayOutputStream());
+    when(process.waitFor(anyLong(), any())).thenReturn(true);
+    when(process.exitValue()).thenReturn(1);
+    doAnswer(
+            invocation -> {
+              Path console = invocation.getArgument(1);
+              Files.writeString(console, "Could not load DDLGenerator. test-password");
+              return process;
+            })
+        .when(nativeExporter)
+        .startProcess(anyList(), any());
+    var result =
+        nativeExporter.export(
+            profile,
+            "dbo",
+            "test-password",
+            root,
+            java.util.List.of(new SybaseDdlExporter.SourceObject(1, "P", "p", "dbo")));
+    var failed = result.objects().get(0);
+    assertEquals("FAILED", failed.status());
+    assertTrue(failed.message().contains("exit code 1"));
+    assertTrue(failed.message().contains("Could not load DDLGenerator"));
+    assertFalse(failed.message().contains("test-password"));
+    Path diagnostic = root.resolve("dbo/procedures/1_p.sql.ddlgen.log");
+    assertTrue(Files.readString(diagnostic).contains("[REDACTED]"));
+    assertFalse(Files.exists(root.resolve("dbo/procedures/1_p.sql.console.partial")));
+    try (var zip = new java.util.zip.ZipFile(root.resolve("schema.zip").toFile())) {
+      assertNotNull(zip.getEntry("dbo/procedures/1_p.sql.ddlgen.log"));
+    }
   }
 }

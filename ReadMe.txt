@@ -355,11 +355,19 @@ parameters are explicitly rejected for this exporter until their equivalent
 SAP utility options are implemented. The password is supplied through stdin
 using SAP's -Pext mechanism, never in command arguments. The process uses no shell.
 
-Output defaults to <jar-home>/dbscripts/source/<export-uuid>/schemas/<schema>/<type>/<id>_<object>.sql plus
+Output defaults to <jar-home>/dbscripts/source/<database>/<ddMMyyyyHHmmss>/<schema>/<type>/<id>_<object>.sql plus
 manifest.json, objects.json and a schema.zip download. During IDE or Maven execution the working directory is used.
 SOURCE_SCRIPT_DIR can override the source root. The backend account needs write
 access to that directory. Exports have unique folders and do not overwrite each
-other. Manifests record configured/detected versions, database, schema, per-object results, status and output
+other. Timestamps use the backend host's local time; a second export for the same
+database within the same second is rejected with a retry message. UUIDs remain
+internal report identifiers; older UUID-based folders remain readable.
+Each utility invocation retains bounded, password-redacted console/error output
+in <id>_<object>.sql.ddlgen.log alongside its SQL file and in schema.zip.
+Failures include the exit code (when available) and diagnostics in objects.json
+and the backend log. Review these details to distinguish missing libraries,
+Java/utility compatibility, login failures and object permissions.
+Manifests record configured/detected versions, database, schema, per-object results, status and output
 location. Pending exports become INTERRUPTED on restart; start a new export.
 Downloads and report history remain available after restart. Keep this directory
 private and manage retention externally.

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.nio.file.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Value;
@@ -91,8 +93,20 @@ public class SourceScriptService {
     if (secret == null || secret.contains("\n") || secret.contains("\r"))
       throw new IllegalArgumentException("Enter database credentials before generating scripts.");
     String id = UUID.randomUUID().toString();
-    Path dir = root.resolve(id);
-    Files.createDirectory(dir);
+    String database = p.getDatabaseName();
+    if (database == null || !database.matches("[A-Za-z_][A-Za-z0-9_$#]*"))
+      throw new IllegalArgumentException(
+          "A literal database name is required for the export folder.");
+    Path parent = root.resolve(database);
+    Files.createDirectories(parent);
+    Path dir =
+        parent.resolve(LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyyHHmmss")));
+    try {
+      Files.createDirectory(dir);
+    } catch (FileAlreadyExistsException e) {
+      throw new IllegalArgumentException(
+          "An export for this database already exists for this second. Retry after one second.");
+    }
     var report =
         new ExportReport(
             id,
@@ -106,7 +120,8 @@ public class SourceScriptService {
             "QUEUED",
             Instant.now(),
             dir.toString(),
-            "Native DDL export for the selected schema only. Row data and other schemas are not exported.");
+            "Native DDL export for the selected schema only. Row data and other schemas are not"
+                + " exported.");
     write(report);
     return report;
   }
@@ -117,7 +132,8 @@ public class SourceScriptService {
             .matcher(version == null ? "" : version.trim());
     if (!matcher.matches())
       throw new IllegalArgumentException(
-          "Native export supports ASE version families 15.7, 16.0 and 16.1. Enter the installed version, for example 16.0 SP03.");
+          "Native export supports ASE version families 15.7, 16.0 and 16.1. Enter the installed"
+              + " version, for example 16.0 SP03.");
     return matcher.group(1);
   }
 
@@ -132,6 +148,7 @@ public class SourceScriptService {
         var metadata = connection.getMetaData();
         String product = metadata.getDatabaseProductName();
         String detected = metadata.getDatabaseProductVersion();
+        report = update(report, "RUNNING", detected, "Checking the source database version.");
         if (product == null
             || !(product.toLowerCase(Locale.ROOT).contains("adaptive server")
                 || product.toLowerCase(Locale.ROOT).contains("sybase")))
@@ -144,7 +161,8 @@ public class SourceScriptService {
                 .matcher(detected)
                 .find())
           throw new IllegalArgumentException(
-              "Configured ASE version family does not match the connected database. Update the DB configuration.");
+              "Configured ASE version family does not match the connected database. Update the DB"
+                  + " configuration.");
         objects = SybaseDdlExporter.discover(connection, report.schemaName());
         report =
             update(
@@ -182,15 +200,18 @@ public class SourceScriptService {
               diagnostics ? "REVIEW_REQUIRED" : "EXPORTED",
               report.detectedVersion(),
               diagnostics
-                  ? "Some schema objects failed or require manual review. See the per-object manifest."
-                  : "Native DDL exported. Validate completeness and replay with a DBA; hidden definitions and utility limitations may require manual work."));
+                  ? "Some schema objects failed or require manual review. See the per-object"
+                        + " manifest."
+                  : "Native DDL exported. Validate completeness and replay with a DBA; hidden"
+                        + " definitions and utility limitations may require manual work."));
     } catch (Exception e) {
       if (report != null) {
         try {
           String message =
               e instanceof IllegalArgumentException
                   ? e.getMessage()
-                  : "Export failed. Check credentials, connectivity, SAP libraries, permissions and backend output-directory access.";
+                  : "Export failed. Check credentials, connectivity, SAP libraries, permissions and"
+                        + " backend output-directory access.";
           write(update(report, "FAILED", report.detectedVersion(), message));
         } catch (IOException ignored) {
         }
@@ -214,10 +235,29 @@ public class SourceScriptService {
         message);
   }
 
-  private Path directory(String id) {
+  private Path directory(String id) throws IOException {
     if (id == null || !id.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"))
       throw new IllegalArgumentException("Invalid export identifier.");
-    return root.resolve(id);
+    Path legacy = root.resolve(id);
+    if (Files.isRegularFile(legacy.resolve("manifest.json"))) return legacy;
+    for (Path manifest : manifests()) {
+      try {
+        if (id.equals(json.readValue(manifest.toFile(), ExportReport.class).id()))
+          return manifest.getParent();
+      } catch (IOException ignored) {
+      }
+    }
+    throw new NoSuchFileException("Export not found: " + id);
+  }
+
+  private List<Path> manifests() throws IOException {
+    if (!Files.exists(root)) return List.of();
+    try (var paths = Files.walk(root, 3)) {
+      return paths
+          .filter(p -> p.getFileName().toString().equals("manifest.json"))
+          .filter(p -> Files.isRegularFile(p, LinkOption.NOFOLLOW_LINKS))
+          .toList();
+    }
   }
 
   public ExportReport get(String id) throws IOException {
@@ -226,13 +266,10 @@ public class SourceScriptService {
 
   public List<ExportReport> list() throws IOException {
     var reports = new ArrayList<ExportReport>();
-    if (!Files.exists(root)) return reports;
-    try (var dirs = Files.list(root)) {
-      for (var dir : dirs.filter(Files::isDirectory).toList()) {
-        try {
-          reports.add(get(dir.getFileName().toString()));
-        } catch (IOException | IllegalArgumentException ignored) {
-        }
+    for (var manifest : manifests()) {
+      try {
+        reports.add(json.readValue(manifest.toFile(), ExportReport.class));
+      } catch (IOException | IllegalArgumentException ignored) {
       }
     }
     reports.sort(Comparator.comparing(ExportReport::createdAt).reversed());
@@ -253,7 +290,9 @@ public class SourceScriptService {
   }
 
   private void write(ExportReport report) throws IOException {
-    Path dir = directory(report.id());
+    Path dir = Path.of(report.outputDirectory()).toAbsolutePath().normalize();
+    if (!dir.startsWith(root.toAbsolutePath().normalize()))
+      throw new IllegalArgumentException("Export directory is outside the source script folder.");
     Path temp = dir.resolve("manifest.json.partial");
     json.writerWithDefaultPrettyPrinter().writeValue(temp.toFile(), report);
     Files.move(

@@ -9,12 +9,15 @@ import java.sql.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /** Runs SAP's native utility without a shell or passwords in process arguments. */
 @Component
 public class SybaseDdlExporter {
+  private static final Logger log = LoggerFactory.getLogger(SybaseDdlExporter.class);
   private final String classpath;
   private final String javaExecutable;
   private final long timeout;
@@ -34,12 +37,14 @@ public class SybaseDdlExporter {
   public void validate(ConnectionProfile profile) {
     if (classpath.isBlank())
       throw new IllegalArgumentException(
-          "Configure SYBASE_DDLGEN_CLASSPATH with the licensed SAP ddlgen libraries on the backend host.");
+          "Configure SYBASE_DDLGEN_CLASSPATH with the licensed SAP ddlgen libraries on the backend"
+              + " host.");
     if (profile.isTlsEnabled()
         || profile.getAuthType() != ConnectionProfile.AuthType.DB_SECRET
         || (profile.getJdbcParameters() != null && !profile.getJdbcParameters().isBlank()))
       throw new IllegalArgumentException(
-          "Native export currently supports password connections without TLS or custom JDBC parameters. These settings cannot be silently omitted by ddlgen.");
+          "Native export currently supports password connections without TLS or custom JDBC"
+              + " parameters. These settings cannot be silently omitted by ddlgen.");
     if (profile.getUsername() == null || profile.getUsername().isBlank())
       throw new IllegalArgumentException("A database username is required.");
     if (profile.getHost() == null
@@ -52,7 +57,8 @@ public class SybaseDdlExporter {
     if (profile.getDatabaseName() == null
         || !profile.getDatabaseName().matches("[A-Za-z_][A-Za-z0-9_$#]*"))
       throw new IllegalArgumentException(
-          "Native export requires a literal database name using letters, digits, _, $, or #; patterns are not supported.");
+          "Native export requires a literal database name using letters, digits, _, $, or #;"
+              + " patterns are not supported.");
   }
 
   public record SourceObject(long id, String type, String name, String owner) {}
@@ -69,7 +75,8 @@ public class SybaseDdlExporter {
   public static void validateSchema(String schema) {
     if (schema == null || !schema.matches("[A-Za-z_][A-Za-z0-9_$#]*"))
       throw new IllegalArgumentException(
-          "Set one literal source schema/owner in Build Migrations. Blank names, patterns and multiple schemas are not supported.");
+          "Set one literal source schema/owner in Build Migrations. Blank names, patterns and"
+              + " multiple schemas are not supported.");
   }
 
   static List<SourceObject> discover(Connection connection, String schema) throws SQLException {
@@ -77,7 +84,8 @@ public class SybaseDdlExporter {
     var objects = new ArrayList<SourceObject>();
     try (var statement =
         connection.prepareStatement(
-            "SELECT o.id, o.type, o.name, u.name FROM sysobjects o JOIN sysusers u ON o.uid=u.uid WHERE u.name=? AND o.type NOT IN ('S','L') ORDER BY o.type, o.name")) {
+            "SELECT o.id, o.type, o.name, u.name FROM sysobjects o JOIN sysusers u ON o.uid=u.uid"
+                + " WHERE u.name=? AND o.type NOT IN ('S','L') ORDER BY o.type, o.name")) {
       statement.setString(1, schema);
       try (var rows = statement.executeQuery()) {
         while (rows.next()) {
@@ -92,7 +100,8 @@ public class SybaseDdlExporter {
     }
     if (objects.isEmpty())
       throw new IllegalArgumentException(
-          "No visible objects were found for the selected schema/owner. Check its exact spelling and permissions; export will not fall back to the full database.");
+          "No visible objects were found for the selected schema/owner. Check its exact spelling"
+              + " and permissions; export will not fall back to the full database.");
     return objects;
   }
 
@@ -162,11 +171,11 @@ public class SybaseDdlExporter {
                 object.owner(),
                 "MANUAL_REVIEW",
                 null,
-                "No standalone extraction for this type/identifier. Table components may be included in their table script; review other objects manually."));
+                "No standalone extraction for this type/identifier. Table components may be"
+                    + " included in their table script; review other objects manually."));
         continue;
       }
-      String relative =
-          "schemas/" + schema + "/" + folder + "/" + object.id() + "_" + object.name() + ".sql";
+      String relative = schema + "/" + folder + "/" + object.id() + "_" + object.name() + ".sql";
       Path output = directory.resolve(relative);
       Files.createDirectories(output.getParent());
       try {
@@ -179,12 +188,21 @@ public class SybaseDdlExporter {
                 diagnostics ? "REVIEW_REQUIRED" : "EXPORTED",
                 relative,
                 diagnostics
-                    ? "SAP utility diagnostics require DBA review."
+                    ? "SAP utility diagnostics require DBA review. See " + relative + ".ddlgen.log."
                     : "Native definition exported; validate dependencies before replay."));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
         throw e;
       } catch (Exception e) {
+        String detail = redact(e.getClass().getSimpleName() + ": " + e.getMessage(), secret);
+        String diagnostic = readDiagnostic(diagnosticFile(output), secret);
+        if (!diagnostic.isBlank()) detail += " | " + diagnostic;
+        log.error(
+            "DDL export failed for {}.{}.{}: {}",
+            profile.getDatabaseName(),
+            schema,
+            object.name(),
+            detail);
         results.add(
             new ScriptResult(
                 object.type(),
@@ -192,7 +210,7 @@ public class SybaseDdlExporter {
                 object.owner(),
                 "FAILED",
                 null,
-                "Extraction failed. Check utility compatibility, visibility and permissions."));
+                "Extraction failed: " + detail));
       }
     }
     var result = new ExportResult(List.copyOf(results));
@@ -209,6 +227,19 @@ public class SybaseDdlExporter {
         Files.copy(directory.resolve(script.file()), zip);
         zip.closeEntry();
       }
+      for (var object : objects) {
+        String folder = folder(object.type());
+        if (folder == null || !object.name().matches("[A-Za-z_][A-Za-z0-9_$#]*")) continue;
+        Path diagnostic =
+            diagnosticFile(
+                directory.resolve(
+                    schema + "/" + folder + "/" + object.id() + "_" + object.name() + ".sql"));
+        if (!Files.isRegularFile(diagnostic)) continue;
+        zip.putNextEntry(
+            new ZipEntry(directory.relativize(diagnostic).toString().replace('\\', '/')));
+        Files.copy(diagnostic, zip);
+        zip.closeEntry();
+      }
     }
     Files.move(archive, directory.resolve("schema.zip"), StandardCopyOption.ATOMIC_MOVE);
     return result;
@@ -219,28 +250,72 @@ public class SybaseDdlExporter {
       throws Exception {
     Path sql = output.resolveSibling(output.getFileName() + ".partial");
     Path errors = output.resolveSibling(output.getFileName() + ".diagnostics.partial");
-    Process process =
-        new ProcessBuilder(command(profile, schema, object, sql, errors))
-            .redirectOutput(ProcessBuilder.Redirect.DISCARD)
-            .redirectError(ProcessBuilder.Redirect.DISCARD)
-            .start();
+    Path console = output.resolveSibling(output.getFileName() + ".console.partial");
+    Process process = null;
     try {
+      process = startProcess(command(profile, schema, object, sql, errors), console);
+      IOException inputFailure = null;
       try (var input = process.getOutputStream()) {
         input.write((secret + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
+      } catch (IOException e) {
+        // An early JVM/utility exit may close stdin; still collect its exit code and output.
+        inputFailure = e;
       }
       if (!process.waitFor(timeout, TimeUnit.SECONDS))
-        throw new IOException("Native object export timed out.");
+        throw new IOException("SAP ddlgen timed out after " + timeout + " seconds.");
       if (process.exitValue() != 0 || !Files.isRegularFile(sql) || Files.size(sql) == 0)
-        throw new IOException("SAP ddlgen did not produce a successful object export.");
+        throw new IOException(
+            "SAP ddlgen exit code "
+                + process.exitValue()
+                + "; "
+                + (Files.isRegularFile(sql) && Files.size(sql) > 0
+                    ? "utility reported failure"
+                    : "no non-empty SQL file was produced")
+                + ".");
+      if (inputFailure != null)
+        throw new IOException("Could not supply the ddlgen password on stdin.");
       boolean diagnostics = Files.exists(errors) && Files.size(errors) > 0;
       Files.move(sql, output, StandardCopyOption.ATOMIC_MOVE);
       return diagnostics;
     } finally {
-      if (process.isAlive()) {
+      if (process != null && process.isAlive()) {
         process.descendants().forEach(ProcessHandle::destroyForcibly);
         process.destroyForcibly();
+        process.waitFor(5, TimeUnit.SECONDS);
       }
+      String diagnostic = readDiagnostic(console, secret);
+      String utilityErrors = readDiagnostic(errors, secret);
+      if (!utilityErrors.isBlank()) diagnostic += "\nSAP ddlgen error output:\n" + utilityErrors;
+      if (!diagnostic.isBlank()) Files.writeString(diagnosticFile(output), diagnostic);
+      Files.deleteIfExists(console);
       Files.deleteIfExists(errors);
+    }
+  }
+
+  private static Path diagnosticFile(Path output) {
+    return output.resolveSibling(output.getFileName() + ".ddlgen.log");
+  }
+
+  Process startProcess(List<String> args, Path console) throws IOException {
+    return new ProcessBuilder(args)
+        .redirectErrorStream(true)
+        .redirectOutput(console.toFile())
+        .start();
+  }
+
+  static String redact(String text, String secret) {
+    return secret == null || secret.isEmpty() ? text : text.replace(secret, "[REDACTED]");
+  }
+
+  private static String readDiagnostic(Path path, String secret) throws IOException {
+    if (!Files.isRegularFile(path)) return "";
+    // Bound report size, retaining overlap so a password crossing the cutoff is redacted.
+    int limit = 16384;
+    int overlap = secret == null ? 0 : secret.getBytes(StandardCharsets.UTF_8).length;
+    try (var input = Files.newInputStream(path)) {
+      String text =
+          redact(new String(input.readNBytes(limit + overlap), StandardCharsets.UTF_8), secret);
+      return text.length() > limit ? text.substring(0, limit) + "\n[truncated]" : text;
     }
   }
 }
